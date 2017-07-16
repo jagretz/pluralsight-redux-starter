@@ -9,7 +9,7 @@ export default class App extends Component {
     return(
       <div className="container-fluid">
         <Header />
-        {/* Passing down, recieved as props, from the router */}
+        {/* Passing down the component, recieved as props.children, from the router */}
         {this.props.children}
       </div>
     );
