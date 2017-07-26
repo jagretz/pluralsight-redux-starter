@@ -6,6 +6,7 @@ import configureStore from "./store/configureStore";
 import { Provider } from "react-redux";
 import {Router, browserHistory } from "react-router";
 import routes from "./routes";
+import { loadCourses } from "./actions/courseActions";
 import "./css/styles.css"; // Webpack can import CSS files too!
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 // import { Link } from "react-router";
@@ -16,8 +17,11 @@ import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
  * would want to pass in an initial state to your application?
  * The answer is whether you want to hydrate your store using a separate state passed down from the
  * server or stored in local storage. This is where you can set that state.
+ *
+ * Once the store is configured we can dispatch actions against the store.
  */
 const store = configureStore(/* Initial State */);
+store.dispatch(loadCourses());
 
 render(
   <Provider store={store}>

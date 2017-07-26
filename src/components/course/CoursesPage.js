@@ -2,36 +2,15 @@ import React, { Component, PropTypes } from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import courseActions from "../../actions/courseActions";
+import CourseList from "./CourseList";
 
 class CoursesPage extends Component {
   /**
    * Creates an instance of CoursesPage.
    * Initialize state and bind functions.
-   * @param {any} props
-   * @param {any} context
-   * @memberof CoursesPage
    */
   constructor(props, context) {
     super(props, context);
-
-    this.state = {
-      course: {title: ""}
-    };
-
-    this.onTitleChange = this.onTitleChange.bind(this);
-    this.onClickSave = this.onClickSave.bind(this);
-    // this.courseRow = this.courseRow.bind(this);
-  }
-  onTitleChange(event) {
-    const course = this.state.course;
-    course.title = event.target.value;
-    this.setState({ course });
-  }
-  onClickSave() {
-    // Most verbose approach. With this approach you do not include a `mapDispatchToProps` function to `connect`.
-    // this.props.dispatch(courseActions.createCourse(this.state.course));
-    // Using connect, we can minimize the boilerplate here with just
-    this.props.actions.createCourse(this.state.course);
   }
   courseRow(course, index) {
     return <div key={index}>{course.title}</div>;
@@ -39,25 +18,14 @@ class CoursesPage extends Component {
   /**
    * Ideally, from within the render func, container components just call child components
    * that contain the template markup.
-   *
-   * @returns template markup
-   * @memberof CoursesPage
    */
   render() {
+    const {courses} = this.props;
+
     return (
       <div>
         <h1>Courses</h1>
-        <h2>Add Course</h2>
-
-        {this.props.courses.map(this.courseRow)}
-
-        <input type="text"
-          onChange={this.onTitleChange}
-          value={this.state.course.title}
-        />
-        <input type="submit" value="Save"
-          onClick={this.onClickSave}
-        />
+        <CourseList courses={courses}/>
       </div>
     );
   }
